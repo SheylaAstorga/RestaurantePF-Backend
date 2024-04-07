@@ -5,6 +5,7 @@ import 'dotenv/config';
 import {fileURLToPath} from 'url'
 import path from 'path';
 import productosRouter from "./src/routes/productos.routes.js";
+import './src/database/database.js'
 
 const app = express()
 app.set('port',process.env.PORT ||4000);
