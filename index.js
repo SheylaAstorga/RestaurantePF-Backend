@@ -4,6 +4,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import {fileURLToPath} from 'url'
 import path from 'path';
+import productosRouter from "./src/routes/productos.routes.js";
 
 const app = express()
 app.set('port',process.env.PORT ||4000);
@@ -22,7 +23,4 @@ console.log(__filename)
 console.log(path.join(__dirname,'/public'))
 app.use(express.static((path.join(__dirname,'/public'))))
 
-app.get('/',(req,res)=>{
- console.log('alguien solicito algo');
- res.send('respuesta desde nuestro backend ')
-})
+app.use('/api',productosRouter)
