@@ -33,7 +33,7 @@ categoria:{
 imagen:{
     type:String,
     required: true,
-    match: [/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/, 'La URL de la imagen no es válida']
+    match: [/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/]
 }
 })
 
