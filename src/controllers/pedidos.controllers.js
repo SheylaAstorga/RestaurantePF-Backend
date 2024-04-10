@@ -9,6 +9,16 @@ export const listarPedidos = async (req, res) => {
       res.status(404).json({ mensaje: 'No se pudo encontrar la lista de pedidos' });
     }
   };
+  export const obtenerPedido = async (req, res) => {
+    try {
+      
+      const pedidoIndividual = await Pedido.findById(req.params.id);
+      res.status(200).json(pedidoIndividual);
+    } catch (error) {
+      console.log(error);
+      res.status(404).json({ mensaje: "No se encontro el producto solicitado" });
+    }
+  };
 
 export const crearPedido = async (req, res) => {
   try {
@@ -24,3 +34,21 @@ export const crearPedido = async (req, res) => {
     });
   }
 };
+
+export const ModPedido = async(req,res) =>{
+  try{
+    const buscarPedido = await Pedido.findById(req.params.id);
+    if (!buscarPedido) {
+      return res
+        .status(404)
+        .json({
+          mensaje: "error en el id del pedido",
+        });
+    }
+    await Pedido.findByIdAndUpdate(req.params.id, req.body);
+    res.status(200).json({ mensaje: "el pedido se modifico exitosamente" });
+  }catch(err){
+    console.error(err);
+    res.status(400).json({mensaje:'no se pudo modificar el pedido'})
+  }
+}
