@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { crearPedido, listarPedidos } from '../controllers/pedidos.controllers.js';
+import { ModPedido, crearPedido, listarPedidos, obtenerPedido } from '../controllers/pedidos.controllers.js';
 
 const router = Router();
 
 router.route('/pedidos').get(listarPedidos).post(crearPedido);
+router.route('/pedidos/:id').get(obtenerPedido).put(ModPedido);
 
 export default router;
