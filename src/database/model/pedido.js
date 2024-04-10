@@ -5,15 +5,13 @@ mongoose.model("Producto", Producto.schema); // Registra el modelo de Producto
 
 const pedidoSchema = new mongoose.Schema({
   // Definición del esquema de Pedido
-  productos: [
-    {
-      producto: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Producto",
-        required: true,
-      },
-    },
-  ],
+
+  producto: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Producto",
+    required: true,
+  },
+
   cantidad: {
     type: Number,
     required: true,
@@ -22,7 +20,7 @@ const pedidoSchema = new mongoose.Schema({
   estado: {
     type: String,
     required: true,
-    enum: ["Cancelado", "Pendinte", "Preparado"],
+    enum: ["Cancelado", "Pendiente", "Preparado"],
   },
   // Otras propiedades del pedido
 });
