@@ -32,12 +32,11 @@ const usuarioSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    trim: true,
     require: true,
+    enum: ["user","admin"]
   },
   isActive: {
-    type: Boolean,
-    require: true
+    type: Boolean
   }
 });
 

@@ -1,6 +1,6 @@
-import { Usuario } from "../database/model/usuario.js";
+import { Usuario } from "../database/model/usuarios.js";
 import bcrypt from "bcrypt";
-import generarJWT from "../helpers/generarJWT.js";
+import generarJWT from "../helper/generarJWT.js";
 
 export const crearUsuario = async (req, res) => {
   try {
