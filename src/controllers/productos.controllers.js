@@ -64,7 +64,7 @@ export const modificarProducto = async(req, res) => {
     if(!buscarProducto){
       return res.status(404).json({mensaje: "No se pudo modificar el producto, el id es incorrecto."})
     }
-    await Producto.findByIdAndUpdate(req.params, req.body);
+    await Producto.findByIdAndUpdate(req.params.id, req.body);
     res.status(200).json({mensaje: "El producto fue modificado exitosamente"});
   } catch (error) {
     console.error(error);
