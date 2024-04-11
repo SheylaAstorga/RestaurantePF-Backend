@@ -40,7 +40,7 @@ export const crearUsuario = async (req, res) => {
 export const listarUsuarios = async (req, res) => {
   try {
     const usuarios = await Usuario.find().select(
-      "email nombreUsuario perfilRGB isActive"
+      "email nombreUsuario perfilRGB isActive suspendido"
     );
     res.status(200).json(usuarios);
   } catch (error) {
@@ -97,6 +97,11 @@ export const login = async (req, res) => {
     if (!passwordValido) {
       return res.status(400).json({
         mensaje: "password incorrecto",
+      });
+    }
+    if (usuarioBuscado.suspendido) {
+      return res.status(400).json({
+        mensaje: "este usuario fue suspendido, usted no puede aceder a esta cuenta",
       });
     }
     const token = await generarJWT(usuarioBuscado._id, usuarioBuscado.email);
@@ -164,10 +169,8 @@ export const logout = async (req, res) => {
     res.status(200).json({ mensaje: "El usuario cerro secion exitosamente" });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        mensaje: "Ocurrio un error al intentar cerrar secion el usuario",
-      });
+    res.status(500).json({
+      mensaje: "Ocurrio un error al intentar cerrar secion el usuario",
+    });
   }
 };
