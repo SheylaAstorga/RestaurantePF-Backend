@@ -134,3 +134,40 @@ export const borrarUsuario = async (req, res) => {
       .json({ mensaje: "Ocurrio un error al intentar borrar el usuario" });
   }
 };
+
+export const suspenderUsuario = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const usuario = await Usuario.findOne({ email });
+    if (!usuario) {
+      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    }
+    usuario.suspendido = true;
+    await usuario.save();
+    res.status(200).json({ mensaje: "Usuario suspendido exitosamente" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ mensaje: "Error al suspender al usuario" });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const usuarioBuscado = await Usuario.findOne({ email });
+    if (!usuario) {
+      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    }
+    const usuario = isActive(usuarioBuscado, true);
+    const nuevoUsuario = new Usuario(usuario);
+    nuevoUsuario.save();
+    res.status(200).json({ mensaje: "El usuario cerro secion exitosamente" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({
+        mensaje: "Ocurrio un error al intentar cerrar secion el usuario",
+      });
+  }
+};
