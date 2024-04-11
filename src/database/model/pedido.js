@@ -25,6 +25,7 @@ const pedidoSchema = new mongoose.Schema({
   // Otras propiedades del pedido
 });
 
+
 const Pedido = mongoose.model("Pedido", pedidoSchema);
 
 export default Pedido;
