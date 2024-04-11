@@ -50,6 +50,10 @@ const usuarioSchema = new mongoose.Schema({
       },
     },
   },
+  suspendido: {
+    type: Boolean,
+    default: false
+  },
 });
 
 export const Usuario = mongoose.model("usuario", usuarioSchema);

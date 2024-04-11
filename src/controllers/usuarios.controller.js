@@ -39,7 +39,9 @@ export const crearUsuario = async (req, res) => {
 
 export const listarUsuarios = async (req, res) => {
   try {
-    const usuarios = await Usuario.find().select('email nombreUsuario perfilRGB isActive');
+    const usuarios = await Usuario.find().select(
+      "email nombreUsuario perfilRGB isActive"
+    );
     res.status(200).json(usuarios);
   } catch (error) {
     console.log(error);
@@ -111,5 +113,24 @@ export const login = async (req, res) => {
     res.status(500).json({
       mensaje: "Error al intentar iniciar secion un usuario.",
     });
+  }
+};
+
+export const borrarUsuario = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const usuarioBuscado = await Usuario.findOne({ email });
+    if (!usuarioBuscado) {
+      return res.status(404).json({
+        mensaje: "Correo incorrecto, no se encontro el email",
+      });
+    }
+    await Usuario.deleteOne({ email });
+    res.status(200).json({ mensaje: "El usuario fue borrado exitosamente" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrio un error al intentar borrar el usuario" });
   }
 };
