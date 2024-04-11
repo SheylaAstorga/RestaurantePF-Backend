@@ -2,6 +2,11 @@ import { Usuario } from "../database/model/usuarios.js";
 import bcrypt from "bcrypt";
 import generarJWT from "../helper/generarJWT.js";
 
+const isActive = (body, boolean) => {
+    const usuario = body;
+    usuario.isActive = boolean;
+    return usuario;
+}
 export const crearUsuario = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -13,7 +18,8 @@ export const crearUsuario = async (req, res) => {
     }
     const saltos = bcrypt.genSaltSync(12);
     const passEncriptada = bcrypt.hashSync(password, saltos);
-    const nuevoUsuario = new Usuario(req.body);
+    const usuario = isActive(req.body, true)
+    const nuevoUsuario = new Usuario(usuario);
     nuevoUsuario.password = passEncriptada;
     nuevoUsuario.save();
     const token = await generarJWT(nuevoUsuario._id, nuevoUsuario.email);
@@ -50,6 +56,8 @@ export const login = async (req, res) => {
       });
     }
     const token = await generarJWT(usuarioBuscado._id, usuarioBuscado.email);
+    const usuario = isActive(usuarioBuscado, true);
+    const nuevoUsuario = new Usuario(usuario);
     res.status(200).json({
       mensaje: "Los datos del usuario son correctos",
       email: email,
