@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 import Producto from "./producto.js"; // Importa el modelo de Producto
+import {Usuario}  from "./usuarios.js";
 
 mongoose.model("Producto", Producto.schema); // Registra el modelo de Producto
+mongoose.model("Usuario", Usuario.schema); // Registra el modelo de Producto
+
 
 const pedidoSchema = new mongoose.Schema({
   // Definición del esquema de Pedido
@@ -11,7 +14,11 @@ const pedidoSchema = new mongoose.Schema({
     ref: "Producto",
     required: true,
   },
-
+  usuario: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Usuario',
+    required:true,
+  },
   cantidad: {
     type: Number,
     required: true,
