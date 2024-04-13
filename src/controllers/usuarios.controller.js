@@ -156,6 +156,23 @@ export const suspenderUsuario = async (req, res) => {
   }
 };
 
+
+export const habilitarUsuario = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const usuario = await Usuario.findOne({ email });
+    if (!usuario) {
+      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    }
+    usuario.suspendido = false;
+    await usuario.save();
+    res.status(200).json({ mensaje: "Usuario habilitado exitosamente" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ mensaje: "Error al habilitar al usuario" });
+  }
+};
+
 export const logout = async (req, res) => {
   try {
     const { email } = req.body;
