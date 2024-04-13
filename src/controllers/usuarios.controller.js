@@ -101,7 +101,8 @@ export const login = async (req, res) => {
     }
     if (usuarioBuscado.suspendido) {
       return res.status(400).json({
-        mensaje: "este usuario fue suspendido, usted no puede aceder a esta cuenta",
+        mensaje:
+          "este usuario fue suspendido, usted no puede aceder a esta cuenta",
       });
     }
     const token = await generarJWT(usuarioBuscado._id, usuarioBuscado.email);
@@ -147,15 +148,16 @@ export const suspenderUsuario = async (req, res) => {
     if (!usuario) {
       return res.status(404).json({ mensaje: "Usuario no encontrado" });
     }
+    usuario.isActive = false;
     usuario.suspendido = true;
-    await usuario.save();
+    const editUsuario = new Usuario(usuario);
+    await editUsuario.save();
     res.status(200).json({ mensaje: "Usuario suspendido exitosamente" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ mensaje: "Error al suspender al usuario" });
   }
 };
-
 
 export const habilitarUsuario = async (req, res) => {
   try {

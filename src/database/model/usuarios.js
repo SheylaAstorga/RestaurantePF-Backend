@@ -32,8 +32,9 @@ const usuarioSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    require: true,
+    require: false,
     enum: ["user", "admin"],
+    default: "user",
   },
   isActive: {
     type: Boolean,
@@ -52,7 +53,7 @@ const usuarioSchema = new mongoose.Schema({
   },
   suspendido: {
     type: Boolean,
-    default: false
+    default: false,
   },
 });
 

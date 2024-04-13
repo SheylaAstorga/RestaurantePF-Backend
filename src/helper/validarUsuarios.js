@@ -32,6 +32,18 @@ export const validacionRegistroAdmin = [
     .matches(/^rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*(,\s*\d+(\.\d+)?\s*)?\)$/)
     .withMessage("el formato debe ser rgb"),
   (req, res, next) => {
-        resultadoValidacion(req, res, next);
+    resultadoValidacion(req, res, next);
+  },
+];
+
+export const validarEmail = [
+  check("email")
+    .notEmpty()
+    .withMessage("el email es obligatorio")
+    .matches(
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i
+    ),
+  (req, res, next) => {
+    resultadoValidacion(req, res, next);
   },
 ];
