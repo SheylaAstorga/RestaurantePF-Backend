@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ModPedido, crearPedido, listarPedidos, obtenerPedido } from '../controllers/pedidos.controllers.js';
+import { ModPedido, borrarPedido, crearPedido, listarPedidos, obtenerPedido } from '../controllers/pedidos.controllers.js';
 
 const router = Router();
 
