@@ -179,10 +179,10 @@ export const logout = async (req, res) => {
   try {
     const { email } = req.body;
     const usuarioBuscado = await Usuario.findOne({ email });
-    if (!usuario) {
+    if (!usuarioBuscado) {
       return res.status(404).json({ mensaje: "Usuario no encontrado" });
     }
-    const usuario = isActive(usuarioBuscado, true);
+    const usuario = isActive(usuarioBuscado, false);
     const nuevoUsuario = new Usuario(usuario);
     nuevoUsuario.save();
     res.status(200).json({ mensaje: "El usuario cerro secion exitosamente" });
@@ -191,5 +191,21 @@ export const logout = async (req, res) => {
     res.status(500).json({
       mensaje: "Ocurrio un error al intentar cerrar secion el usuario",
     });
+  }
+};
+
+
+export const isAdmin = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const usuario = await Usuario.findOne({ email });
+    if (!usuario) {
+      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    }
+    await usuario.save();
+    res.status(200).json({ role: usuario.role });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ mensaje: "Error al habilitar al usuario" });
   }
 };

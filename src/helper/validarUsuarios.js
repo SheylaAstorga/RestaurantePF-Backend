@@ -21,7 +21,7 @@ export const validacionRegistroAdmin = [
     .withMessage(
       "la contraseña debe tener por lo menos 8 caracteres y debe contener numeros, letras minusculas y letras mayusculas"
     ),
-  check("rol")
+  check("role")
     .notEmpty()
     .withMessage("la rol del usuario debe ser obligatorio")
     .isIn(["user", "admin"])
