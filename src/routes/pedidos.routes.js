@@ -4,6 +4,6 @@ import { ModPedido, crearPedido, listarPedidos, obtenerPedido } from '../control
 const router = Router();
 
 router.route('/pedidos').get(listarPedidos).post(crearPedido);
-router.route('/pedidos/:id').get(obtenerPedido).put(ModPedido);
+router.route('/pedidos/:id').get(obtenerPedido).put(ModPedido).delete(borrarPedido)
 
 export default router;

@@ -52,3 +52,25 @@ export const ModPedido = async(req,res) =>{
     res.status(400).json({mensaje:'no se pudo modificar el pedido'})
   }
 }
+
+
+export const borrarPedido = async (req, res) => {
+  try {
+    const buscarPedido = await Pedido.findById(req.params.id);
+    if (!buscarPedido) {
+      return res
+        .status(404)
+        .json({
+          mensaje: "No se pudo eliminar el pedido, el id es incorrecto.",
+        });
+    }
+    await Pedido.findByIdAndDelete(req.params.id, req.body);
+
+    res.status(200).json({ mensaje: "El pedido fue eliminado exitosamente" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrio un error al intentar borrar el pedido" });
+  }
+};
