@@ -26,7 +26,7 @@ export const crearPedido = async (req, res) => {
   try {
     const pedidoNuevo = new Pedido({
       ...req.body,
-      usuario: req.user._id,
+      // usuario: req.user._id,
     });
     await pedidoNuevo.save();
     res.status(201).json({ mensaje: 'Pedido guardado' });
