@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import Producto from "./producto.js"; // Importa el modelo de Producto
+import Producto from "./producto.js";
 import {Usuario}  from "./usuarios.js";
 
-mongoose.model("Producto", Producto.schema); // Registra el modelo de Producto
-mongoose.model("Usuario", Usuario.schema); // Registra el modelo de Producto
+mongoose.model("Producto", Producto.schema);
+mongoose.model("Usuario", Usuario.schema);
 
 
 const pedidoSchema = new mongoose.Schema({
@@ -17,7 +17,7 @@ const pedidoSchema = new mongoose.Schema({
   usuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Usuario',
-    required:true,
+    required:false,
   },
   cantidad: {
     type: Number,
@@ -28,8 +28,7 @@ const pedidoSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ["Cancelado", "Pendiente", "Preparado"],
-  },
-  // Otras propiedades del pedido
+  }
 });
 
 
