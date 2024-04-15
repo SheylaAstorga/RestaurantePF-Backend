@@ -4,8 +4,10 @@ import {
   crearUsuario,
   crearUsuarioAdmin,
   habilitarUsuario,
+  isAdmin,
   listarUsuarios,
   login,
+  logout,
   suspenderUsuario,
 } from "../controllers/usuarios.controller.js";
 import {
@@ -25,5 +27,7 @@ router.route("/usuarios").get(listarUsuarios);
 router.route("/suspenderUsuario").post([validarEmail], suspenderUsuario);
 router.route("/borrarUsuario").post([validarEmail], borrarUsuario);
 router.route("/habilitarUsuario").post([validarEmail], habilitarUsuario);
+router.route("/logout").post([validarEmail],logout);
+router.route("/isAdmin").post([validarEmail],isAdmin);
 
 export default router;
