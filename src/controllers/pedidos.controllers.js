@@ -1,4 +1,6 @@
 import Pedido from '../database/model/pedido.js';
+import {Usuario}  from '../database/model/usuarios.js';
+import Producto from '../database/model/producto.js';
 
 export const listarPedidos = async (req, res) => {
   try {
@@ -22,19 +24,42 @@ export const obtenerPedido = async (req, res) => {
   }
 };
 
-export const crearPedido = async (req, res) => {
+export async function crearPedido(req, res) {
   try {
-    const pedidoNuevo = new Pedido({
-      ...req.body,
-      usuario: req.user._id,
-    });
-    await pedidoNuevo.save();
-    res.status(201).json({ mensaje: 'Pedido guardado' });
+      // Obtener los datos necesarios del cuerpo de la solicitud
+      const { productoId, usuarioId, cantidad } = req.body;
+
+      // Verificar si el producto y el usuario existen
+      const producto = await Producto.findById(productoId);
+      const usuario = await Usuario.findById(usuarioId);
+
+      if (!producto) {
+          return res.status(404).json({ error: 'Producto no encontrado' });
+      }
+
+      if (!usuario) {
+          return res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+
+      // Crear el pedido
+      const nuevoPedido = new Pedido({
+          producto: productoId,
+          usuario: usuarioId,
+          cantidad: cantidad,
+          estado: 'Pendiente'
+      });
+
+      // Guardar el pedido en la base de datos
+      const pedidoGuardado = await nuevoPedido.save();
+
+      // Devolver la respuesta con el pedido creado
+      return res.status(201).json(pedidoGuardado);
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ mensaje: 'No se pudo procesar la solicitud de crear pedido' });
+      // Manejar errores
+      console.error('Error al crear el pedido:', error);
+      return res.status(500).json({ error: 'Error interno del servidor' });
   }
-};
+}
 
 export const ModPedido = async (req, res) => {
   try {
