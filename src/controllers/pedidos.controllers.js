@@ -34,7 +34,7 @@ export async function crearPedido(req, res) {
     res.status(201).json({ mensaje: 'Pedido guardado' });
   } catch (error) {
       console.error('Error al crear el pedido:', error);
-      return res.status(500).json({ error: 'Error interno del servidor' });
+      return res.status(500).json({ mensaje: 'Error interno del servidor' });
   }
 }
 
