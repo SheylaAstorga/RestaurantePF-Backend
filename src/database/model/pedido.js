@@ -10,7 +10,7 @@ const pedidoSchema = new mongoose.Schema({
   // Definición del esquema de Pedido
 
   producto: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.Array,
     ref: "Producto",
     required: true,
   },
@@ -19,10 +19,9 @@ const pedidoSchema = new mongoose.Schema({
     ref: 'Usuario',
     required:false,
   },
-  cantidad: {
-    type: Number,
-    required: true,
-    min: 1,
+  fecha: {
+    type: mongoose.Schema.Types.Date,
+    default: Date.now,
   },
   estado: {
     type: String,
