@@ -4,7 +4,7 @@ import { ModPedido, borrarPedido, crearPedido, listarPedidos, obtenerPedido } fr
 
 const router = Router();
 
-router.route('/pedidos').get(listarPedidos).post([validarJWT],crearPedido);
+router.route('/pedidos').get([validarJWT],listarPedidos).post([validarJWT],crearPedido);
 router.route('/pedidos/:id').get(obtenerPedido).put([validarJWT],ModPedido).delete([validarJWT],borrarPedido)
 
 export default router;

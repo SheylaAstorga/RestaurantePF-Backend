@@ -2,7 +2,9 @@ import Pedido from '../database/model/pedido.js'
 
 export const listarPedidos = async (req, res) => {
   try {
-    const pedidos = await Pedido.find().populate('producto').populate('usuario');
+    const pedidos = await Pedido.find({ usuario: req._id })
+                                 .populate('producto')
+                                 .populate('usuario');
     res.status(200).json(pedidos);
   } catch (error) {
     console.log(error);
@@ -24,13 +26,13 @@ export const obtenerPedido = async (req, res) => {
 
 export async function crearPedido(req, res) {
   try {
+    console.log(req.body)
     const pedidoNuevo = new Pedido({
-      ...req.body,
+      ...req.body, usuario: req._id
     });
     await pedidoNuevo.save();
     res.status(201).json({ mensaje: 'Pedido guardado' });
   } catch (error) {
-      // Manejar errores
       console.error('Error al crear el pedido:', error);
       return res.status(500).json({ error: 'Error interno del servidor' });
   }
