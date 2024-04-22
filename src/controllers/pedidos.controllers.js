@@ -28,6 +28,7 @@ export const crearPedido = async (req, res) => {
       ...req.body,
       
     });
+    console.log(pedidoNuevo);
     await pedidoNuevo.save();
     res.status(201).json({ mensaje: 'Pedido guardado' });
   } catch (error) {

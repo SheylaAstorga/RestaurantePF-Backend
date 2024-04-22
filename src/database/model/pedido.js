@@ -9,15 +9,16 @@ mongoose.model("Usuario", Usuario.schema);
 const pedidoSchema = new mongoose.Schema({
   // Definición del esquema de Pedido
 
-  producto: {
-    type: mongoose.Schema.Types.Array,
-    ref: "Producto",
-    required: true,
-  },
+  producto: { type: Array, require: true, ref:"Producto"},
+  // {
+  //   type: mongoose.Schema.Types.Array,
+  //   ref: "Producto",
+  //   required: true,
+  // },
   usuario: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Usuario',
-    required:false,
+    required:true,
   },
   fecha: {
     type: mongoose.Schema.Types.Date,
