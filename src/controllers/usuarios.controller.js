@@ -16,6 +16,14 @@ export const crearUsuario = async (req, res) => {
         mensaje: "Este correo ya se encuentra registrado.",
       });
     }
+    const usuarioValidacion = await Usuario.findOne({
+      nombreUsuario: req.body.nombreUsuario,
+    });
+    if (usuarioValidacion) {
+      return res.status(400).json({
+        mensaje: "Este nombre ya se encuentra registrado.",
+      });
+    }
     const saltos = bcrypt.genSaltSync(12);
     const passEncriptada = bcrypt.hashSync(password, saltos);
     const usuario = isActive(req.body, true);
@@ -58,6 +66,14 @@ export const crearUsuarioAdmin = async (req, res) => {
     if (emailValidacion) {
       return res.status(400).json({
         mensaje: "Este correo ya se encuentra registrado.",
+      });
+    }
+    const usuarioValidacion = await Usuario.findOne({
+      nombreUsuario: req.body.nombreUsuario,
+    });
+    if (usuarioValidacion) {
+      return res.status(400).json({
+        mensaje: "Este nombre ya se encuentra registrado.",
       });
     }
     const saltos = bcrypt.genSaltSync(12);
@@ -193,7 +209,6 @@ export const logout = async (req, res) => {
     });
   }
 };
-
 
 export const isAdmin = async (req, res) => {
   try {
