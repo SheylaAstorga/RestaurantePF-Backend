@@ -1,4 +1,4 @@
-import Pedido from '../database/model/pedido.js';
+import Pedido from '../database/model/pedido.js'
 
 export const listarPedidos = async (req, res) => {
   try {
@@ -22,7 +22,7 @@ export const obtenerPedido = async (req, res) => {
   }
 };
 
-export const crearPedido = async (req, res) => {
+export async function crearPedido(req, res) {
   try {
     const pedidoNuevo = new Pedido({
       ...req.body,
@@ -30,10 +30,11 @@ export const crearPedido = async (req, res) => {
     await pedidoNuevo.save();
     res.status(201).json({ mensaje: 'Pedido guardado' });
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ mensaje: 'No se pudo procesar la solicitud de crear pedido' });
+      // Manejar errores
+      console.error('Error al crear el pedido:', error);
+      return res.status(500).json({ error: 'Error interno del servidor' });
   }
-};
+}
 
 export const ModPedido = async (req, res) => {
   try {

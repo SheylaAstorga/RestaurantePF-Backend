@@ -7,8 +7,6 @@ mongoose.model("Usuario", Usuario.schema);
 
 
 const pedidoSchema = new mongoose.Schema({
-  // Definición del esquema de Pedido
-
   producto: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Producto",
