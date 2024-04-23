@@ -9,7 +9,7 @@
     "dev": "nodemon --exec node index.js"
   },
   "keywords": [],
-  "author": "Sheyla astorga,Daniel emanuel santi Araoz,Javier Exequiel Jimenez, Thiago Benjamin Fiol, Natalia del valle Morales",
+  "author": "Sheyla astorga,Daniel Emmanuel santi Araoz,Javier Exequiel Jimenez, Thiago Benjamin Fiol, Natalia del valle Morales",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
