@@ -1,12 +1,6 @@
 import mongoose from "mongoose";
 
 const usuarioSchema = new mongoose.Schema({
-  nombreUsuario: {
-    type: String,
-    required: true,
-    minLength: 4,
-    maxLength: 15,
-  },
   email: {
     type: String,
     trim: true,
@@ -18,6 +12,13 @@ const usuarioSchema = new mongoose.Schema({
         return pattern.test(value);
       },
     },
+  },
+  nombreUsuario: {
+    type: String,
+    required: true,
+    unique: true,
+    minLength: 4,
+    maxLength: 15,
   },
   password: {
     type: String,

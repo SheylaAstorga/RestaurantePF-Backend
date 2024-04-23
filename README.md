@@ -21,6 +21,7 @@ Además, hemos implementado un sistema de inicio de sesión que ofrece diferente
 - express
 - express-validator
 - bcrypt
+- JWT
 
 ## Pasos para clonar el proyecto
 1. Abre la terminal en el lugar que desees.

@@ -1,35 +1,32 @@
 import mongoose from "mongoose";
-import Producto from "./producto.js"; // Importa el modelo de Producto
+import Producto from "./producto.js";
 import {Usuario}  from "./usuarios.js";
 
-mongoose.model("Producto", Producto.schema); // Registra el modelo de Producto
-mongoose.model("Usuario", Usuario.schema); // Registra el modelo de Producto
+mongoose.model("Producto", Producto.schema);
+mongoose.model("Usuario", Usuario.schema);
 
 
 const pedidoSchema = new mongoose.Schema({
+
   // Definición del esquema de Pedido
 
-  producto: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Producto",
-    required: true,
-  },
+  producto: { type: Array, require: true, ref:"Producto"},
+
+
   usuario: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Usuario',
-    required:false,
+    required:true,
   },
-  cantidad: {
-    type: Number,
-    required: true,
-    min: 1,
+  fecha: {
+    type: mongoose.Schema.Types.Date,
+    default: Date.now,
   },
   estado: {
     type: String,
     required: true,
     enum: ["Cancelado", "Pendiente", "Preparado"],
-  },
-  // Otras propiedades del pedido
+  }
 });
 
 

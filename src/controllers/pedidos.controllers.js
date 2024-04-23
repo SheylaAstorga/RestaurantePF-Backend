@@ -1,4 +1,4 @@
-import Pedido from '../database/model/pedido.js';
+import Pedido from '../database/model/pedido.js'
 
 export const listarPedidos = async (req, res) => {
   try {
@@ -22,19 +22,21 @@ export const obtenerPedido = async (req, res) => {
   }
 };
 
-export const crearPedido = async (req, res) => {
+export async function crearPedido(req, res) {
   try {
     const pedidoNuevo = new Pedido({
       ...req.body,
-      // usuario: req.user._id,
+      
     });
+    console.log(pedidoNuevo);
     await pedidoNuevo.save();
     res.status(201).json({ mensaje: 'Pedido guardado' });
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ mensaje: 'No se pudo procesar la solicitud de crear pedido' });
+      // Manejar errores
+      console.error('Error al crear el pedido:', error);
+      return res.status(500).json({ error: 'Error interno del servidor' });
   }
-};
+}
 
 export const ModPedido = async (req, res) => {
   try {
@@ -56,6 +58,26 @@ export const ModPedido = async (req, res) => {
 
 
 export const borrarPedido = async (req, res) => {
+  try {
+    const buscarPedido = await Pedido.findById(req.params.id);
+    if (!buscarPedido) {
+      return res
+        .status(404)
+        .json({
+          mensaje: "No se pudo eliminar el pedido, el id es incorrecto.",
+        });
+    }
+    await Pedido.findByIdAndDelete(req.params.id, req.body);
+
+    res.status(200).json({ mensaje: "El pedido fue eliminado exitosamente" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrio un error al intentar borrar el pedido" });
+  }
+};
+export const borrarTodosLosPedidos = async (req, res) => {
   try {
     const buscarPedido = await Pedido.findById(req.params.id);
     if (!buscarPedido) {
