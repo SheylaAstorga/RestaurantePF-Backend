@@ -2,7 +2,7 @@ import Pedido from '../database/model/pedido.js'
 
 export const listarPedidos = async (req, res) => {
   try {
-    const pedidos = await Pedido.find().populate('producto').populate('usuario');
+    const pedidos = await Pedido.find( {usuario: req._id}).populate('producto').populate('usuario');
     res.status(200).json(pedidos);
   } catch (error) {
     console.log(error);
