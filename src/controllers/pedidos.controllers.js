@@ -25,14 +25,13 @@ export const obtenerPedido = async (req, res) => {
 export async function crearPedido(req, res) {
   try {
     const pedidoNuevo = new Pedido({
-      ...req.body,
+      ...req.body, usuario: req._id
       
     });
     console.log(pedidoNuevo);
     await pedidoNuevo.save();
     res.status(201).json({ mensaje: 'Pedido guardado' });
   } catch (error) {
-      // Manejar errores
       console.error('Error al crear el pedido:', error);
       return res.status(500).json({ error: 'Error interno del servidor' });
   }
